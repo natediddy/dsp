@@ -1,0 +1,44 @@
+DSP (Download SPeed)
+--------------------
+
+This is a small command line tool that tests the download speed of
+your internet connection. Results can be measured in bytes or bits,
+and in either SI (metric) or IEC (binary) formats. You can provide
+your own URL to test a download from, or simply just let the program
+use its own defaults. Check out the usage details below.
+
+Usage: dsp -[bBiLmMS] [-u URL]
+
+Options:
+  -b, --bit          Show result measurements in bits
+  -B, --byte         Show result measurements in bytes
+  -m, --metric       Use metric measurements (multiples of 1000)
+  -i, --binary       Use binary measurements (multiples of 1024)
+  -S, --small        Perform test using a small size download [about 12MB]
+                       (fastest default test but with the least
+                        accurate results)
+  -M, --medium       Perform test using a medium size download [about 40MB]
+                       (slower than the default small test but
+                        with slightly more accurate results)
+  -L, --large        Perform test using a large size download [about 80MB]
+                       (slowest default test but with the most
+                        accurate results)
+  -u URL, --url=URL  Perform test with URL instead of the default
+  -?, -h, --help     Show this message and exit
+  -v, --version      Show version information and exit
+
+Defaults:
+  If neither options `--bit' nor `--byte' are given, `--byte' is implied
+  If neither options `--metric' nor `--binary' are given, `--metric' is
+    implied
+  If none of the options `--small', `--medium' nor `--large' are given,
+    `--medium' is implied
+
+The command line options above (except for the -u or --url=URL options) can
+be provided separately or all together. For example, if you wanted to perform
+the small download default test measuring bits in binary units, all of the
+following would be equal:
+    dsp -Sbi
+    dsp -ibS
+    dsp -b -S -i
+    dsp --small --bit --binary
