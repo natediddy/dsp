@@ -21,49 +21,14 @@
 #define __DSP_H__
 
 #define DSP_DEFAULT_PROGRAM_NAME "dsp"
-#define DSP_VERSION "1.0.2"
+#define DSP_VERSION "1.1.0"
 
-/* user agent string for libcurl */
 #define DSP_USER_AGENT \
   DSP_DEFAULT_PROGRAM_NAME " (Download SPeed tester)/" DSP_VERSION
 
-/* character constants for short command line options */
-#define DSP_OPTION_SHORT_HELP0_C '?'
-#define DSP_OPTION_SHORT_BIT_C 'b'
-#define DSP_OPTION_SHORT_BYTE_C 'B'
-#define DSP_OPTION_SHORT_HELP1_C 'h'
-#define DSP_OPTION_SHORT_BINARY_C 'i'
-#define DSP_OPTION_SHORT_LARGE_C 'L'
-#define DSP_OPTION_SHORT_METRIC_C 'm'
-#define DSP_OPTION_SHORT_MEDIUM_C 'M'
-#define DSP_OPTION_SHORT_SMALL_C 'S'
-#define DSP_OPTION_SHORT_URL_C 'u'
-#define DSP_OPTION_SHORT_VERSION_C 'v'
+#define DSP_DEFAULT_CONSOLE_WIDTH 40
 
-/* string constants for short command line options */
-#define DSP_OPTION_SHORT_HELP0_S "?"
-#define DSP_OPTION_SHORT_BIT_S "b"
-#define DSP_OPTION_SHORT_BYTE_S "B"
-#define DSP_OPTION_SHORT_HELP1_S "h"
-#define DSP_OPTION_SHORT_BINARY_S "i"
-#define DSP_OPTION_SHORT_LARGE_S "L"
-#define DSP_OPTION_SHORT_METRIC_S "m"
-#define DSP_OPTION_SHORT_MEDIUM_S "M"
-#define DSP_OPTION_SHORT_SMALL_S "S"
-#define DSP_OPTION_SHORT_URL_S "u"
-#define DSP_OPTION_SHORT_VERSION_S "v"
-
-/* string constants for long command line options */
-#define DSP_OPTION_LONG_BINARY "binary"
-#define DSP_OPTION_LONG_BIT "bit"
-#define DSP_OPTION_LONG_BYTE "byte"
-#define DSP_OPTION_LONG_HELP "help"
-#define DSP_OPTION_LONG_LARGE "large"
-#define DSP_OPTION_LONG_MEDIUM "medium"
-#define DSP_OPTION_LONG_METRIC "metric"
-#define DSP_OPTION_LONG_SMALL "small"
-#define DSP_OPTION_LONG_URL "url"
-#define DSP_OPTION_LONG_VERSION "version"
+#define DSP_TEMP_FILENAME ".__" DSP_DEFAULT_PROGRAM_NAME "__"
 
 #define DSP_BYTE_SYMBOL "B"
 #define DSP_BIT_SYMBOL "bit"
@@ -97,8 +62,8 @@
 
 /* static buffer sizes */
 #define DSP_TIME_BUFFER_SIZE 64
-#define DSP_SIZE_BUFFER_SIZE 16
-#define DSP_SPEED_BUFFER_SIZE 20
+#define DSP_SIZE_BUFFER_SIZE 32
+#define DSP_SPEED_BUFFER_SIZE 36
 
 /* constants for dealing with time stuff */
 #define DSP_SECONDS_IN_DAY 86400
@@ -135,7 +100,7 @@ typedef unsigned char dsp_boolean_t;
 typedef unsigned long dsp_byte_t;
 
 /* initialization value */
-#define DSP_ZERO_BYTES ((dsp_byte_t) 0lu)
+#define DSP_ZERO_BYTES ((dsp_byte_t) 0LU)
 
 /* units defined by the International Electrotechnical Commission (IEC) */
 #define DSP_BINARY_KIBI ((dsp_byte_t) 1024LU)
@@ -148,6 +113,18 @@ typedef unsigned long dsp_byte_t;
 #define DSP_METRIC_MEGA ((dsp_byte_t) 1000000LU)
 #define DSP_METRIC_GIGA ((dsp_byte_t) 1000000000LU)
 #define DSP_METRIC_TERA ((dsp_byte_t) 1000000000000LU)
+/* }}} */
+
+/* custom type for the -n/--unit command */
+/* {{{ */
+typedef unsigned int dsp_unit_option_t;
+
+#define DSP_UNIT_OPTION_0 0
+#define DSP_UNIT_OPTION_B 1
+#define DSP_UNIT_OPTION_K 2
+#define DSP_UNIT_OPTION_M 3
+#define DSP_UNIT_OPTION_G 4
+#define DSP_UNIT_OPTION_T 5
 /* }}} */
 
 /* tags for final output */
