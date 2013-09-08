@@ -14,7 +14,7 @@ all: $(TARGET)
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o $(TARGET) $(LDFLAGS)
 
-dsp.o: dsp.c dsp.h
+dsp.o: dsp.c
 	$(CC) $(CFLAGS) -c dsp.c
 
 clean:
