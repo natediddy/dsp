@@ -1199,9 +1199,9 @@ static void dsp_perform(void)
         exit(EXIT_FAILURE);
     }
 
-  curl_easy_cleanup(cp);
-  dsp_fill_display_data();
-  dsp_show_display_data();
+    curl_easy_cleanup(cp);
+    dsp_fill_display_data();
+    dsp_show_display_data();
 }
 
 static void dsp_cleanup(void)
