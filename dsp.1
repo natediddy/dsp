@@ -1,0 +1,91 @@
+.TH DSP 1 "September 13, 2013" "version 1.3.0" "USER COMMANDS"
+.SH NAME
+dsp \- Download SPeed
+.SH SYNOPSIS
+.B dsp
+\-[\fBbBiLmMS\fR] [\fB\-\-unit\fR=\fIUNIT\fR] [\fB\-\-url\fR=\fIURL\fR]
+.SH DESCRIPTION
+.B dsp
+tests your internet connection's download speed, displaying the total download time, total download size, average download rate, peak download rate, and the lowest download rate.
+.SH OPTIONS
+.TP
+\fB\-b\fR, \fB\-\-bit\fR
+Show result measurements in bits
+.TP
+\fB\-B\fR, \fB\-\-byte\fR
+Show result measurements in bytes
+.TP
+\fB\-m\fR, \fB\-\-metric\fR
+Use metric measurements (multiples of 1000)
+.TP
+\fB\-i\fR, \fB\-\-binary\fR
+Use binary measurements (multiples of 1024)
+.TP
+\fB\-n \fIUNIT\fR\fR, \fB\-\-unit=\fIUNIT\fR\fR
+Measure results strictly in \fIUNIT\fR
+
+\fIUNIT\fR can be any of the following:
+
+    \fIb\fR or \fIB\fR - bit/bytes
+    \fIk\fR or \fIK\fR - kilo/kibi
+    \fIm\fR or \fIM\fR - mega/mebi
+    \fIg\fR or \fIG\fR - giga/gibi
+    \fIt\fR or \fIT\fR - tera/tebi
+
+Whether the result is in metric or binary depends on their respective options given above.
+.TP
+\fB\-S\fR, \fB\-\-small\fR
+Perform test using a small size download (13MB)
+This is the fastest default test but with the least accurate results.
+.TP
+\fB\-M\fR, \fB\-\-medium\fR
+Perform test using a medium size download (40MB)
+Slower than \fB\-S\fR test but with slightly more accurate results.
+.TP
+\fB\-L\fR, \fB\-\-large\fR
+Perform test using a large size download (82MB)
+Slowest default test but with the most accurate results.
+.TP
+\fB\-u \fIURL\fR\fR, \fB\-\-url=\fIURL\fR\fR
+Perform test with \fIURL\fR instead of the defaults.
+.TP
+\fB\-?\fR, \fB\-h\fR, \fB\-\-help\fR
+Display help text and exit
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+Display version information and exit
+.SH EXAMPLES
+.TP
+All of the options above (except for the \fB\-u\fR and \fB\-\-url\fR) can be provided separately or all together. For example, if you wanted to perform the small download default test measuring only kilobits in IEC binary units, all of the following commands would be equal:
+
+dsp \-SnKbi
+
+dsp \-ibSnk
+
+dsp \-b \-S \-i \-n K
+
+dsp \-b \-S \-nk \-\-binary
+
+dsp \-\-small \-\-bit \-\-binary \-\-unit=K
+.PP
+.SH "EXIT STATUS"
+Returns zero on success and non-zero if an error occurred.
+.SH NOTES
+The \fB\-m\fR/\fB\-\-metric\fR option will cause results to be in measurements defined by the International System of Units (SI). Meaning multiples of 1000 bytes or bits.
+
+The \fB\-i\fR/\fB\-\-binary\fR option will cause results to be in measurements defined by the International Electrotechnical Commision (IEC). Meaning multiples of 1024 bytes or bits.
+
+If neither options \fB\-b\fR/\fB\-\-bit\fR nor \fB\-B\fR/\fB\-\-byte\fR are given, \fB\-B\fR/\fB\-\-byte\fR is implied.
+
+If neither options \fB\-m\fR/\fB\-\-metric\fR nor \fB\-i\fR/\fB\-\-binary\fR are given, \fB\-m\fR/\fB\-\-metric\fR is implied.
+
+If none of the options \fB\-S\fR/\fB\-\-small\fR, \fB\-M\fR/\fB\-\-medium\fR, nor \fB\-L\fR/\fB\-\-large\fR are given, \fB\-M\fR/\fB\-\-medium\fR is implied.
+.SH AUTHOR
+Nathan Forbes
+.SH "REPORTING BUGS"
+Report bugs to me@nathanforbes.com
+.SH COPYRIGHT
+Copyright (C) 2013 Nathan Forbes.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.

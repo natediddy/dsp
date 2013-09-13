@@ -18,6 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include <errno.h>
 #include <limits.h>
 #include <stdarg.h>
@@ -25,20 +29,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <time.h>
-
-#ifdef _WIN32
-# include <windows.h>
-#else
+#ifdef HAVE_SYS_IOCTL_H
 # include <sys/ioctl.h>
+#endif
+#include <time.h>
+#ifdef HAVE_UNISTD_H
 # include <unistd.h>
+#endif
+#ifdef HAVE_WINDOWS_H
+# include <windows.h>
 #endif
 
 #include <curl/curl.h>
 
 #define DSP_DEFAULT_PROGRAM_NAME "dsp"
 
-#define DSP_VERSION "1.2.0"
+#define DSP_VERSION "1.3.0"
 
 #define DSP_USER_AGENT \
     DSP_DEFAULT_PROGRAM_NAME " (Download SPeed tester)/" DSP_VERSION
@@ -57,7 +63,7 @@
 "                             g or G - giga/gibi\n" \
 "                             t or T - tera/tebi\n" \
 "                         Whether the result is in metric or binary\n" \
-"                         depends on their respective given options above.\n"\
+"                         depends on their respective options given above.\n"\
 "  -S, --small            Perform test using a small size download (13MB)\n" \
 "                         Fastest default test with least accurate results\n"\
 "  -M, --medium           Perform test using a medium size download (40MB)\n"\
@@ -166,7 +172,11 @@ DSP_DEFAULT_PROGRAM_NAME " " DSP_VERSION "\n" \
 # define DSP_PATH_SEPARATOR_CHAR   '/'
 # define DSP_USER_HOME_PATH_VAR    "HOME"
 # define DSP_GETENV(varname)       getenv(varname)
-# define DSP_DELETE_FILE(filename) (unlink(filename) == 0)
+# ifdef HAVE_UNISTD_H
+#  define DSP_DELETE_FILE(filename) (unlink(filename) == 0)
+# else
+#  define DSP_DELETE_FILE(filename)
+# endif
 #endif
 
 #define DSP_GETENV_HOME DSP_GETENV(DSP_USER_HOME_PATH_VAR)
@@ -852,18 +862,23 @@ static dsp_boolean_t dsp_is_nan_value(double v)
 static int dsp_get_console_width(void)
 {
     int width;
+
+    width = -1;
 #ifdef _WIN32
     CONSOLE_SCREEN_BUFFER_INFO x;
 
     if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &x))
         width = x.dwSize.X;
 #else
+# ifdef HAVE_SYS_IOCTL_H
     struct winsize x;
 
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &x) != -1)
         width = x.ws_col;
+# endif
 #endif
-    else
+
+    if (width <= 0)
         width = DSP_FALLBACK_CONSOLE_WIDTH;
     return width;
 }
