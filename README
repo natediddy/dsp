@@ -52,5 +52,6 @@ all of the following commands would be equal:
 
 To install on a Linux OS, make sure the libcurl development libraries are
 installed and (from the dsp project directory) run:
+    ./configure
     make
     sudo make install
